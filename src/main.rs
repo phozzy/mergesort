@@ -1,3 +1,12 @@
+fn sort(unsorted: Vec<i32>) -> Vec<i32> {
+    let length = unsorted.len();
+    if length == 1 {
+        unsorted
+    } else {
+        let (first_unsorted, second_unsorted) = unsorted.split_at(length / 2);
+        merge(sort(first_unsorted.to_vec()), sort(second_unsorted.to_vec()))
+    }
+}
 fn merge(first_sorted: Vec<i32>, second_sorted: Vec<i32>) -> Vec<i32> {
     let mut output: Vec<i32> = Vec::new();
     let mut first = first_sorted.iter();
@@ -37,7 +46,7 @@ fn merge(first_sorted: Vec<i32>, second_sorted: Vec<i32>) -> Vec<i32> {
             };
         };
         if !(fi || si) {
-            break output
+            break output;
         }
     }
 }
@@ -46,6 +55,11 @@ fn main() {
     let first_sorted = vec![2, 7];
     let output = merge(first_sorted, second_sorted);
     for it in output {
+        println!("{}", it);
+    };
+    println!("sorted");
+    let unsorted = vec![8,2,3,1,5];
+    for it in sort(unsorted) {
         println!("{}", it);
     };
 }
